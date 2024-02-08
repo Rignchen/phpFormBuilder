@@ -19,7 +19,8 @@ class TemplateType implements FormType {
     }
 
     public function getCallable(): callable {
-        return $this->callable;
+        if ($this->callable) return $this->callable;
+        return fn($value) => $value;
     }
     public function call($value, $callable)
     {
