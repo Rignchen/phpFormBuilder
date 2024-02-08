@@ -7,6 +7,7 @@ class FormBuilder {
     private string $method;
     private string $class;
     private array $fields = [];
+    private bool $is_rendered = false;
     public function __construct(string $method = 'get', string $action = '', string $class = '') {
         if (!in_array($method, ['get', 'post'])) {
             throw new \InvalidArgumentException('Invalid action');
@@ -17,6 +18,9 @@ class FormBuilder {
     }
 
     public function add(FormType $type) {
+        if ($this->is_rendered) {
+            throw new \RuntimeException('Form is already rendered');
+        }
         $temp = $type;
         $name = $temp->getName();
         if (isset($this->fields[$name])) {
@@ -27,6 +31,10 @@ class FormBuilder {
     }
 
     public function render(): FormRenderer {
+        if ($this->is_rendered) {
+            throw new \RuntimeException('Form is already rendered');
+        }
+        $this->is_rendered = true;
         return new FormRenderer($this->action, $this->method, $this->class, $this->fields);
     }
 
