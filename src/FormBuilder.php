@@ -16,7 +16,7 @@ class FormBuilder {
         $this->class = $class;
     }
 
-    public function addField(FormType $type) {
+    public function add(FormType $type) {
         $temp = $type;
         $name = $temp->getName();
         if (isset($this->fields[$name])) {
