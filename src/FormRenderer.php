@@ -6,6 +6,8 @@ class FormRenderer
 {
     private bool $is_open = false;
     private bool $is_closed = false;
+    private array $data = [];
+
     /**
      * @param string $action
      * @param string $method
@@ -18,6 +20,11 @@ class FormRenderer
         private readonly string $class,
         private readonly array $fields
     ) {
+        if ($this->method === 'get') {
+            $this->data = $_GET;
+        } elseif ($this->method === 'post') {
+            $this->data = $_POST;
+        }
     }
 
     public function open(): string {
@@ -46,9 +53,8 @@ class FormRenderer
         if ($this->is_closed) {
             throw new \InvalidArgumentException('Form is closed');
         }
-        if (isset($this->fields[$name])) {
-            return $this->fields[$name]->render();
-        }
+        if (isset($this->fields[$name]))
+            return $this->fields[$name]->render($this->data[$name] ?? null);
         throw new \InvalidArgumentException('Field does not exist');
     }
 }

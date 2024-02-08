@@ -29,7 +29,7 @@ class TemplateType implements FormType {
         }
     }
 
-    public function render(): string
+    public function render($value): string
     {
         // TODO: Implement render() method.
     }
