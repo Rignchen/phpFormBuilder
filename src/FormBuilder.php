@@ -16,7 +16,7 @@ class FormBuilder {
         }
     }
 
-    public function add(FormType $type) {
+    public function add(FormType $type): void {
         if ($this->is_rendered) {
             throw new \RuntimeException('Form is already rendered');
         }
@@ -25,6 +25,7 @@ class FormBuilder {
         if (isset($this->fields[$name])) {
             throw new \InvalidArgumentException('Field already exists');
         }
+        $temp->setID(count($this->fields));
         $this->fields[$name] = $temp;
     }
 

@@ -4,6 +4,7 @@ namespace Rignchen\Forms\FormTypes;
 use Rignchen\Forms\FormType;
 
 class TextInput implements FormType {
+    private string $id;
     public function __construct(
         private readonly string $name,
         private readonly string $class = '',
@@ -13,6 +14,9 @@ class TextInput implements FormType {
 
     public function getName(): string {
         return $this->name;
+    }
+    public function setID(string $id): void {
+        $this->id = $id;
     }
 
     public function getCallable(): callable {
@@ -26,6 +30,6 @@ class TextInput implements FormType {
 
     public function render($value): string {
         if ($value !== null) $this->value = $value;
-        return "<input type='text' name='{$this->name}' class='{$this->class}' value='{$this->value}'>";
+        return "<input type='text' name='{$this->name}' class='{$this->class}' id='$this->id' value='{$this->value}'>";
     }
 }

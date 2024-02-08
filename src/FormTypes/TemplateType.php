@@ -4,7 +4,7 @@ namespace Rignchen\Forms\FormTypes;
 use Rignchen\Forms\FormType;
 
 class TemplateType implements FormType {
-
+    private string $id;
     public function __construct(
         private readonly string $name,
         private readonly string $class = '',
@@ -13,6 +13,9 @@ class TemplateType implements FormType {
 
     public function getName(): string {
         return $this->name;
+    }
+    public function setID(string $id): void {
+        $this->id = $id;
     }
 
     public function getCallable(): callable {
@@ -25,6 +28,6 @@ class TemplateType implements FormType {
     }
 
     public function render($value): string {
-        // TODO: Implement render() method.
+        return "<----- name='{$this->name}' class='{$this->class}' id='$this->id' value='{$this->value}'>";
     }
 }

@@ -4,7 +4,7 @@ namespace Rignchen\Forms\FormTypes;
 use Rignchen\Forms\FormType;
 
 class CheckboxInput implements FormType {
-
+    private string $id;
     public function __construct(
         private readonly string $name,
         private readonly string $text,
@@ -15,6 +15,9 @@ class CheckboxInput implements FormType {
 
     public function getName(): string {
         return $this->name;
+    }
+    public function setID(string $id): void {
+        $this->id = $id;
     }
 
     public function getCallable(): callable {
@@ -28,7 +31,7 @@ class CheckboxInput implements FormType {
 
     public function render($value): string {
         $checked = $value===null ? '' : 'checked';
-        return "<input type='checkbox' name='$this->name' class='$this->class' id='$this->name' value='' $checked>
+        return "<input type='checkbox' name='$this->name' class='$this->class' id='$this->id' value='' $checked>
                 <label for='$this->name' class='$this->textClass'>$this->text</label>";
     }
 }

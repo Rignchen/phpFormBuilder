@@ -4,6 +4,7 @@ namespace Rignchen\Forms\FormTypes;
 use Rignchen\Forms\FormType;
 
 class SubmitButton implements FormType {
+    private string $id;
     public function __construct(
         private readonly string $name,
         private readonly string $class = '',
@@ -13,6 +14,9 @@ class SubmitButton implements FormType {
 
     public function getName(): string {
         return $this->name;
+    }
+    public function setID(string $id): void {
+        $this->id = $id;
     }
 
     public function getCallable(): callable {
@@ -25,6 +29,6 @@ class SubmitButton implements FormType {
     }
 
     public function render($value): string {
-        return "<input type='submit' class='$this->class' name='$this->name' value='$this->text'>";
+        return "<input type='submit' class='$this->class' name='$this->name' id='$this->id' value='$this->text'>";
     }
 }
