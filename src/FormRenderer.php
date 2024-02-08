@@ -4,18 +4,20 @@ namespace Rignchen\Forms;
 
 class FormRenderer
 {
-    private string $action;
-    private string $method;
-    private string $class;
-    private array $fields;
     private bool $is_open = false;
     private bool $is_closed = false;
-
-    public function __construct(string $action, string $method, string $class, array $fields) {
-        $this->action = $action;
-        $this->method = $method;
-        $this->class = $class;
-        $this->fields = $fields;
+    /**
+     * @param string $action
+     * @param string $method
+     * @param string $class
+     * @var array<FormType> $fields
+     */
+    public function __construct(
+        private readonly string $action,
+        private readonly string $method,
+        private readonly string $class,
+        private readonly array $fields
+    ) {
     }
 
     public function open(): string {
