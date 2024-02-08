@@ -7,8 +7,8 @@ class FormBuilder {
     private string $method;
     private string $class;
     private array $fields = [];
-    public function __construct(string $action = 'get', string $method = '', string $class = '') {
-        if (!in_array($action, ['get', 'post'])) {
+    public function __construct(string $method = 'get', string $action = '', string $class = '') {
+        if (!in_array($method, ['get', 'post'])) {
             throw new \InvalidArgumentException('Invalid action');
         }
         $this->action = $action;
