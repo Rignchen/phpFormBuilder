@@ -9,6 +9,7 @@ class CheckboxInput implements FormType {
         private readonly string $name,
         private readonly string $text,
         private readonly string $class = '',
+        private readonly string $textClass = '',
         private $callable = null
     ) {}
 
@@ -27,6 +28,7 @@ class CheckboxInput implements FormType {
 
     public function render($value): string {
         $checked = $value===null ? '' : 'checked';
-        return "<input type='checkbox' name='$this->name' class='$this->class' id='$this->name' value='' $checked><label for='$this->name'>$this->text</label>";
+        return "<input type='checkbox' name='$this->name' class='$this->class' id='$this->name' value='' $checked>
+                <label for='$this->name' class='$this->textClass'>$this->text</label>";
     }
 }
