@@ -3,18 +3,17 @@
 namespace Rignchen\Forms;
 
 class FormBuilder {
-    private string $action;
-    private string $method;
-    private string $class;
     private array $fields = [];
     private bool $is_rendered = false;
-    public function __construct(string $method = 'get', string $action = '', string $class = '') {
+	
+    public function __construct(
+        private readonly string $method = 'get',
+        private readonly string $action = '',
+        private readonly string $class = ''
+    ) {
         if (!in_array($method, ['get', 'post'])) {
             throw new \InvalidArgumentException('Invalid action');
         }
-        $this->action = $action;
-        $this->method = $method;
-        $this->class = $class;
     }
 
     public function add(FormType $type) {

@@ -4,17 +4,12 @@ namespace Rignchen\Forms\FormTypes;
 use Rignchen\Forms\FormType;
 
 class TextInput implements FormType {
-    private string $name;
-    private string $class;
-    private $callable;
-    private string $value;
-
-    public function __construct(string $name, string $class = '', $callable = null, string $value = '') {
-        $this->name = $name;
-        $this->class = $class;
-        $this->callable = $callable;
-        $this->value = $value;
-    }
+    public function __construct(
+        private readonly string $name,
+        private readonly string $class = '',
+        private $callable = null,
+        private string $value = ''
+    ) {}
 
     public function getName(): string {
         return $this->name;
