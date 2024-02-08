@@ -19,6 +19,9 @@ class FormBuilder {
     public function addField(FormType $type) {
         $temp = $type;
         $name = $temp->getName();
+        if (isset($this->fields[$name])) {
+            throw new \InvalidArgumentException('Field already exists');
+        }
         $this->fields[$name] = $temp;
         return $this->try_call($name, $temp);
     }
