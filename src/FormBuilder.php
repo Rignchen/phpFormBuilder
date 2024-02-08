@@ -27,23 +27,28 @@ class FormBuilder {
             throw new \InvalidArgumentException('Field already exists');
         }
         $this->fields[$name] = $temp;
-        return $this->try_call($name, $temp);
     }
 
     public function render(): FormRenderer {
         if ($this->is_rendered) {
             throw new \RuntimeException('Form is already rendered');
         }
+        $this->try_call();
         $this->is_rendered = true;
         return new FormRenderer($this->action, $this->method, $this->class, $this->fields);
     }
 
-    private function try_call(string $name, FormType $form_element) {
-        if ($this->method === 'post' && isset($_POST[$name])) {
-            return $form_element->call($_POST[$name]);
+    private function try_call() {
+        $data = [];
+        if ($this->method === 'get') {
+            $data = $_GET;
+        } elseif ($this->method === 'post') {
+            $data = $_POST;
         }
-        if ($this->method === 'get' && isset($_GET[$name])) {
-            return $form_element->call($_GET[$name]);
+        foreach ($this->fields as $name => $field) {
+            if (isset($data[$name])) {
+                $field->setValue($data[$name]);
+            }
         }
     }
 }
