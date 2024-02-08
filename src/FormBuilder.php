@@ -47,7 +47,7 @@ class FormBuilder {
         }
         foreach ($this->fields as $name => $field) {
             if (isset($data[$name])) {
-                $field->setValue($data[$name]);
+                $field->call($data[$name], $field->getCallable());
             }
         }
     }

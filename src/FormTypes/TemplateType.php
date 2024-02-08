@@ -18,10 +18,13 @@ class TemplateType implements FormType {
         return $this->name;
     }
 
-    public function call($value)
+    public function getCallable(): callable {
+        return $this->callable;
+    }
+    public function call($value, $callable)
     {
         if ($this->callable) {
-            return $this->callable($value);
+            return $callable($value);
         }
     }
 
