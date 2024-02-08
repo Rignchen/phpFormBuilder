@@ -26,6 +26,10 @@ class FormBuilder {
         return $this->try_call($name, $temp);
     }
 
+    public function render(): FormRenderer {
+        return new FormRenderer($this->action, $this->method, $this->class, $this->fields);
+    }
+
     private function try_call(string $name, FormType $form_element) {
         if ($this->method === 'post' && isset($_POST[$name])) {
             return $form_element->call($_POST[$name]);
@@ -34,5 +38,5 @@ class FormBuilder {
             return $form_element->call($_GET[$name]);
         }
     }
-    }
+}
 
