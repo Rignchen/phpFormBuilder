@@ -46,6 +46,10 @@ class FormRenderer
         return '</form>';
     }
 
+    public function label(string $for, string $value, string $class = ''): string {
+        $id = $this->fields[$for]->getID();
+        return "<label for='$id' class='$class'>$value</label>";
+    }
     public function get(string $name): string {
         if (!$this->is_open) {
             throw new \InvalidArgumentException('Form is not open');
