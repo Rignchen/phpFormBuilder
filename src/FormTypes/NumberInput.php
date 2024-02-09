@@ -33,8 +33,7 @@ class NumberInput implements FormType {
         return $this->callable ?? fn($value) => $value;
     }
     public function call($value, callable $callable): void {
-        if (!$this->is_valid($value)) throw new \InvalidArgumentException('Invalid value');
-        $callable(intval($value));
+        if ($this->is_valid($value)) $callable(intval($value));
     }
 
     public function render($value): string {
