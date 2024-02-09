@@ -9,4 +9,5 @@ interface FormType
     public function call($value, callable $callable);
     public function render($value): string;
     public function setID(string $id);
+    public function getID(): string;
 }

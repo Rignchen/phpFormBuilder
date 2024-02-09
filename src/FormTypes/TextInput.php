@@ -15,6 +15,9 @@ class TextInput implements FormType {
     public function getName(): string {
         return $this->name;
     }
+    public function getID(): string {
+        return $this->id;
+    }
     public function setID(string $id): void {
         $this->id = $id;
     }
