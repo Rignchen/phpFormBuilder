@@ -26,9 +26,7 @@ class SubmitButton implements FormType {
         return $this->callable ?? fn($value) => $value;
     }
     public function call($value, $callable) {
-        if ($this->callable) {
-            return $callable($value);
-        }
+        return $callable($value);
     }
 
     public function render($value): string {
