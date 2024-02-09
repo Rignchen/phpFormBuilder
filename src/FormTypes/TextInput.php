@@ -31,6 +31,6 @@ class TextInput implements FormType {
 
     public function render($value): string {
         if ($value !== null) $this->value = $value;
-        return "<input type='text' name='{$this->name}' class='{$this->class}' id='$this->id' value='{$this->value}'>";
+        return "<input type='text' name='$this->name' class='$this->class' id='$this->id' value='{$this->value}'>";
     }
 }

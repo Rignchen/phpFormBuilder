@@ -38,7 +38,7 @@ class NumberInput implements FormType {
 
     public function render($value): string {
         if ($this->is_valid($value)) $this->value = $value;
-        return "<input type='number' name='{$this->name}' class='{$this->class}' id='$this->id' value='{$this->value}'"
+        return "<input type='number' name='$this->name' class='$this->class' id='$this->id' value='{$this->value}'"
             . ($this->min ? " min='{$this->min}'" : '')
             . ($this->max ? " max='{$this->max}'" : '')
             . ($this->step ? " step='{$this->step}'" : '')

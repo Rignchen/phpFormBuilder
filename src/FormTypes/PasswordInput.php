@@ -37,6 +37,6 @@ class PasswordInput implements FormType {
     }
 
     public function render($value): string {
-        return "<input type='password' name='{$this->name}' class='{$this->class}' id='$this->id'>";
+        return "<input type='password' name='$this->name' class='$this->class' id='$this->id'>";
     }
 }

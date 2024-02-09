@@ -24,14 +24,12 @@ class FormBuilder {
     }
 
     public function add(FormType $type): void {
-        if ($this->is_rendered) {
+        if ($this->is_rendered)
             throw new \RuntimeException('Form is already rendered');
-        }
         $temp = $type;
         $name = $temp->getName();
-        if (isset($this->fields[$name])) {
+        if (isset($this->fields[$name]))
             throw new \InvalidArgumentException('Field already exists');
-        }
         $temp->setID($name . "-" . count($this->fields));
         $this->fields[$name] = $temp;
     }
@@ -44,20 +42,17 @@ class FormBuilder {
     }
 
     public function render(): FormRenderer {
-        if ($this->is_rendered) {
+        if ($this->is_rendered)
             throw new \RuntimeException('Form is already rendered');
-        }
         $this->try_call();
         $this->is_rendered = true;
         return new FormRenderer($this->action, $this->method, $this->class, $this->fields);
     }
 
     private function try_call(): void {
-        foreach ($this->fields as $name => $field) {
-            if (isset($this->data[$name])) {
+        foreach ($this->fields as $name => $field)
+            if (isset($this->data[$name]))
                 $field->call($this->data[$name], $field->getCallable());
-            }
-        }
     }
 }
 

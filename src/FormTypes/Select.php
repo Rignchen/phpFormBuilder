@@ -33,10 +33,9 @@ class Select implements FormType {
     public function render($value): string {
         if ($value === null || $value < 0 || $value >= count($this->options))
             $value = $this->default;
-        $output = "<select name='{$this->name}' class='{$this->class}' id='$this->id'>";
-        foreach ($this->options as $key => $option) {
-            $output .= "<option value='$key' " . ($value == $key ? 'selected' : '') . ">" . $this->call($option, $this->getCallable()) . "</option>";
-        }
+        $output = "<select name='$this->name' class='$this->class' id='$this->id'>";
+        foreach ($this->options as $key => $option)
+            $output .= "<option value='$key' " . ($value == $key ? 'selected' : '') . ">" . $option . "</option>";
         return $output . '</select>';
     }
 }
