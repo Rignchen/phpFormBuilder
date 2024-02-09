@@ -51,6 +51,6 @@ class NumberInput implements FormType {
             && is_numeric($value)
             && ($this->min === null || $value >= $this->min)
             && ($this->max === null || $value <= $this->max)
-            && ($this->step === null || $value % $this->step === 0);
+            && ($this->step === null || ($value - $this->value) % $this->step === 0);
     }
 }
