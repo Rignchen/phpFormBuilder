@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'vendor/autoload.php';
 
 use Rignchen\Forms\FormBuilder;
@@ -8,10 +9,13 @@ $users = [
     'admin' => password_hash('admin', PASSWORD_BCRYPT),
     'user' => password_hash('user', PASSWORD_BCRYPT),
 ];
+if (!isset($_SESSION['usernames'])) $_SESSION['usernames'] = [];
 $current_user = null;
-$form = new FormBuilder();
+$form = new FormBuilder('safe_post');
 $form->addList([
-        new FormTypes\TextInput('name'),
+        new FormTypes\TextInput('name', '', function ($value) {
+            $_SESSION['usernames'][] = $value;
+        }),
         new FormTypes\PasswordInput('password', function ($value) {
             global $users, $current_user;
             if ($value !== null) foreach ($users as $user => $hash) if (password_verify($value, $hash)) $current_user = $user;
@@ -40,3 +44,9 @@ $form_renderer = $form->render();
 <?= $form_renderer->get('agree') ?> <?= $form_renderer->label('agree', 'I agree to the terms and conditions') ?>
 <?= $form_renderer->get('submit') ?>
 <?= $form_renderer->close() ?>
+
+<ul>
+    <?php foreach ($_SESSION['usernames'] as $username): ?>
+        <li><?= $username ?></li>
+    <?php endforeach ?>
+</ul>

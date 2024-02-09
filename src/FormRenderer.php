@@ -6,7 +6,6 @@ class FormRenderer
 {
     private bool $is_open = false;
     private bool $is_closed = false;
-    private array $data = [];
 
     /**
      * @param string $action
@@ -18,21 +17,16 @@ class FormRenderer
         private readonly string $action,
         private readonly string $method,
         private readonly string $class,
-        private readonly array $fields
-    ) {
-        if ($this->method === 'get') {
-            $this->data = $_GET;
-        } elseif ($this->method === 'post') {
-            $this->data = $_POST;
-        }
-    }
+        private readonly array $fields,
+        private readonly array $data
+    ) {}
 
     public function open(): string {
         if ($this->is_open) {
             throw new \InvalidArgumentException('Form is already open');
         }
         $this->is_open = true;
-        return "<form action='{$this->action}' method='{$this->method}' class='{$this->class}'>";
+        return "<form action='$this->action' method='$this->method' class='$this->class'>";
     }
 
     public function close(): string {
