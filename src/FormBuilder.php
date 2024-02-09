@@ -3,6 +3,9 @@
 namespace Rignchen\Forms;
 
 class FormBuilder {
+    /**
+     * @var array<FormType> $fields
+     */
     private array $fields = [];
     private bool $is_rendered = false;
 	
@@ -38,7 +41,7 @@ class FormBuilder {
         return new FormRenderer($this->action, $this->method, $this->class, $this->fields);
     }
 
-    private function try_call() {
+    private function try_call(): void {
         $data = [];
         if ($this->method === 'get') {
             $data = $_GET;
