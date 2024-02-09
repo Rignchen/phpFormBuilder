@@ -9,7 +9,8 @@ class TextInput implements FormType {
         private readonly string $name,
         private readonly string $class = '',
         private $callable = null,
-        private string $value = ''
+        private string $value = '',
+        private readonly string $placeholder = ""
     ) {}
 
     public function getName(): string {
@@ -31,6 +32,6 @@ class TextInput implements FormType {
 
     public function render($value): string {
         if ($value !== null) $this->value = $value;
-        return "<input type='text' name='$this->name' class='$this->class' id='$this->id' value='{$this->value}'>";
+        return "<input type='text' name='$this->name' class='$this->class' id='$this->id' value='{$this->value}' placeholder='$this->placeholder'>";
     }
 }
