@@ -31,6 +31,6 @@ class TemplateType implements FormType {
 
     public function render($value): string {
         if ($value === null) $value = $this->value;
-        return "<----- name='$this->name}' class='$this->class' id='$this->id' value='{$value}'>";
+        return "<----- name='$this->name' class='$this->class' id='$this->id' value='{$value}'>";
     }
 }
