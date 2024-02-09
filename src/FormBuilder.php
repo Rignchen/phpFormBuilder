@@ -25,7 +25,7 @@ class FormBuilder {
         if (isset($this->fields[$name])) {
             throw new \InvalidArgumentException('Field already exists');
         }
-        $temp->setID(count($this->fields));
+        $temp->setID($name . "-" . count($this->fields));
         $this->fields[$name] = $temp;
     }
 
