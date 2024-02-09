@@ -36,6 +36,13 @@ class FormBuilder {
         $this->fields[$name] = $temp;
     }
 
+    /**
+     * @param array<FormType> $types
+     */
+    public function addList(array $types): void {
+        foreach ($types as $type) $this->add($type);
+    }
+
     public function render(): FormRenderer {
         if ($this->is_rendered) {
             throw new \RuntimeException('Form is already rendered');
