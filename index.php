@@ -16,13 +16,14 @@ $form->addList([
             global $users, $current_user;
             if ($value !== null) foreach ($users as $user => $hash) if (password_verify($value, $hash)) $current_user = $user;
         }),
+        new FormTypes\TextArea('bio'),
+        new FormTypes\ColorInput('skin'),
         new FormTypes\NumberInput('age', '', null, 0, 100, 10, 55),
         new FormTypes\CheckboxInput('agree'),
-        new FormTypes\Select('gender', ["Prefer not to say","Men","Women","Other"], 2),
+        new FormTypes\Select('gender', ["Prefer not to say","Men","Women","Other"], 3),
         new FormTypes\SubmitButton('submit')
 ]);
 $form_renderer = $form->render();
-
 ?>
 
 <?php if (isset($current_user)): ?>
@@ -32,9 +33,10 @@ $form_renderer = $form->render();
 <?= $form_renderer->open() ?>
 <?= $form_renderer->get('name') ?>
 <?= $form_renderer->get('password') ?>
+<?= $form_renderer->get('bio') ?>
+<?= $form_renderer->get('skin') ?>
 <?= $form_renderer->get('age') ?>
 <?= $form_renderer->get('gender') ?>
-<?= $form_renderer->get('agree') ?>
-<?= $form_renderer->label('agree', 'I agree to the terms and conditions') ?>
+<?= $form_renderer->get('agree') ?> <?= $form_renderer->label('agree', 'I agree to the terms and conditions') ?>
 <?= $form_renderer->get('submit') ?>
 <?= $form_renderer->close() ?>
