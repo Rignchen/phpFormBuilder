@@ -8,15 +8,19 @@ class FormBuilder {
      */
     private array $fields = [];
     private bool $is_rendered = false;
+    private array $data = [];
 	
     public function __construct(
         private readonly string $method = 'get',
         private readonly string $action = '',
         private readonly string $class = ''
     ) {
-        if (!in_array($method, ['get', 'post'])) {
+        if (!in_array($method, ['get', 'post']))
             throw new \InvalidArgumentException('Invalid action');
-        }
+        if ($this->method === 'get')
+            $this->data = $_GET;
+        elseif ($this->method === 'post')
+            $this->data = $_POST;
     }
 
     public function add(FormType $type): void {
@@ -42,15 +46,9 @@ class FormBuilder {
     }
 
     private function try_call(): void {
-        $data = [];
-        if ($this->method === 'get') {
-            $data = $_GET;
-        } elseif ($this->method === 'post') {
-            $data = $_POST;
-        }
         foreach ($this->fields as $name => $field) {
-            if (isset($data[$name])) {
-                $field->call($data[$name], $field->getCallable());
+            if (isset($this->data[$name])) {
+                $field->call($this->data[$name], $field->getCallable());
             }
         }
     }
