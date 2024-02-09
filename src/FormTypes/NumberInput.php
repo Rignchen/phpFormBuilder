@@ -12,8 +12,12 @@ class NumberInput implements FormType {
         private readonly int|null $min = null,
         private readonly int|null $max = null,
         private readonly int|null $step = null,
-        private string $value = ''
-    ) {}
+        private int $value = 0
+    ) {
+        if ($this->min !== null && $this->value < $this->min) $this->value = $this->min;
+        if ($this->min !== null && $this->min > $this->max) throw new \InvalidArgumentException('Min cannot be greater than max');
+        if ($this->max !== null && $this->value > $this->max) $this->value = $this->max;
+    }
 
     public function getName(): string {
         return $this->name;
