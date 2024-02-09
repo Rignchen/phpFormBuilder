@@ -9,7 +9,8 @@ class FormBuilder {
     private array $fields = [];
     private bool $is_rendered = false;
     private array $data = [];
-	
+    private array $displayData = [];
+
     public function __construct(
         private string $method = 'get',
         private readonly string $action = '',
@@ -17,25 +18,34 @@ class FormBuilder {
     ) {
         if (!in_array($method, ['get', 'post','safe_post']))
             throw new \InvalidArgumentException('Invalid action');
-        if ($this->method === 'get')
+        if ($this->method === 'get') {
             $this->data = $_GET;
-        elseif ($this->method === 'post')
+            $this->displayData = $this->data;
+        }
+        elseif ($this->method === 'post') {
             $this->data = $_POST;
+            $this->displayData = $this->data;
+        }
         elseif ($this->method === 'safe_post') {
             session_start();
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['Rignchen\Forms\safePost'] = $_POST;
+                $_SESSION['Rignchen\Forms\safePostDisplay'] = $_POST;
                 header("Location: " . $_SERVER['REQUEST_URI']);
                 exit;
             }
             else {
-                if (isset($_SESSION['Rignchen\Forms\safePost'])) {
-                    $this->data = $_SESSION['Rignchen\Forms\safePost'];
-                    unset($_SESSION['Rignchen\Forms\safePost']);
-                }
-                else $this->data = [];
-                $this->method = 'post';
+                if (isset($_SESSION['Rignchen\Forms\safePostDisplay']))
+                    $this->displayData = $_SESSION['Rignchen\Forms\safePostDisplay'];
+                else
+                    $this->displayData = [];
             }
+            if (isset($_SESSION['Rignchen\Forms\safePost'])) {
+                $this->data = $_SESSION['Rignchen\Forms\safePost'];
+                unset($_SESSION['Rignchen\Forms\safePost']);
+            }
+            else $this->data = [];
+            $this->method = 'post';
         }
     }
 
@@ -62,7 +72,7 @@ class FormBuilder {
             throw new \RuntimeException('Form is already rendered');
         $this->try_call();
         $this->is_rendered = true;
-        return new FormRenderer($this->action, $this->method, $this->class, $this->fields, $this->data);
+        return new FormRenderer($this->action, $this->method, $this->class, $this->fields, $this->displayData);
     }
 
     private function try_call(): void {
