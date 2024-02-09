@@ -6,7 +6,7 @@ interface FormType
 {
     public function getName(): string;
     public function getCallable(): callable;
-    public function call($value, callable $callable);
+    public function call($value, callable $callable): void;
     public function render($value): string;
     public function setID(string $id);
     public function getID(): string;

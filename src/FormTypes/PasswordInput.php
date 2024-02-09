@@ -32,8 +32,8 @@ class PasswordInput implements FormType {
     public function getCallable(): callable {
         return $this->callable;
     }
-    public function call($value, callable $callable) {
-        return $callable($value);
+    public function call($value, callable $callable): void {
+        $callable($value);
     }
 
     public function render($value): string {

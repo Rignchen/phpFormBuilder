@@ -24,8 +24,8 @@ class CheckboxInput implements FormType {
     public function getCallable(): callable {
         return $this->callable ?? fn($value) => $value;
     }
-    public function call($value, callable $callable) {
-        return $callable($value);
+    public function call($value, callable $callable): void {
+        $callable($value);
     }
 
     public function render($value): string {
