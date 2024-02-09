@@ -8,7 +8,8 @@ class TemplateType implements FormType {
     public function __construct(
         private readonly string $name,
         private readonly string $class = '',
-        private $callable = null
+        private $callable = null,
+        private readonly string $value = ''
     ) {}
 
     public function getName(): string {
@@ -29,6 +30,7 @@ class TemplateType implements FormType {
     }
 
     public function render($value): string {
+        if ($value === null) $value = $this->value;
         return "<----- name='$this->name}' class='$this->class' id='$this->id' value='{$value}'>";
     }
 }
