@@ -17,7 +17,7 @@ class PasswordInput implements FormType {
     ) {
         if (isset($_GET[$name])) unset($_GET[$name]);
         if (isset($_POST[$name])) unset($_POST[$name]);
-        if (isset($_SESSION['Rignchen\Forms\safePostDisplay'][$name])) unset($_SESSION['Rignchen\Forms\safePostDisplay'][$name]);
+        if (isset($_SESSION['Rignchen']['Forms']['safePost']['data'][$name])) unset($_SESSION['Rignchen']['Forms']['safePost']['data'][$name]);
     }
 
     public function getName(): string {

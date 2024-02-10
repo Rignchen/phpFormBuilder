@@ -15,11 +15,14 @@ class FormRenderer
      */
     public function __construct(
         private readonly string $action,
-        private readonly string $method,
+        private string $method,
         private readonly string $class,
         private readonly array $fields,
         private readonly array $data
-    ) {}
+    ) {
+        if ($method === 'safe_post')
+            $this->method = 'post';
+    }
 
     public function open(): string {
         if ($this->is_open) {
