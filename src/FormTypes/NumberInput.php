@@ -5,6 +5,8 @@ use Rignchen\Forms\FormType;
 
 class NumberInput implements FormType {
     private string $id;
+    private int $priority = 2;
+    
     public function __construct(
         private readonly string $name,
         private readonly string $class = '',
@@ -19,6 +21,9 @@ class NumberInput implements FormType {
         if ($this->max !== null && $this->value > $this->max) $this->value = $this->max;
     }
 
+    public function getPriorityLevel(): int {
+        return $this->priority;
+    }
     public function getName(): string {
         return $this->name;
     }

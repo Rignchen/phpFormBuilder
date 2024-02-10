@@ -6,7 +6,8 @@ use Rignchen\Forms\FormType;
 
 class PasswordInput implements FormType {
     private string $id;
-
+    private int $priority = 1;
+    
     /**
      * @throws Exception if $callable is null
      */
@@ -20,6 +21,9 @@ class PasswordInput implements FormType {
         if (isset($_SESSION['Rignchen']['Forms']['safePost']['data'][$name])) unset($_SESSION['Rignchen']['Forms']['safePost']['data'][$name]);
     }
 
+    public function getPriorityLevel(): int {
+        return $this->priority;
+    }
     public function getName(): string {
         return $this->name;
     }

@@ -5,6 +5,8 @@ use Rignchen\Forms\FormType;
 
 class Select implements FormType {
     private string $id;
+    private int $priority = 2;
+    
     public function __construct(
         private readonly string $name,
         private readonly array $options,
@@ -13,6 +15,9 @@ class Select implements FormType {
         private $callable = null
     ) {}
 
+    public function getPriorityLevel(): int {
+        return $this->priority;
+    }
     public function getName(): string {
         return $this->name;
     }

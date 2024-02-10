@@ -5,6 +5,8 @@ use Rignchen\Forms\FormType;
 
 class TextInput implements FormType {
     private string $id;
+    private int $priority = 2;
+    
     public function __construct(
         private readonly string $name,
         private readonly string $class = '',
@@ -13,6 +15,9 @@ class TextInput implements FormType {
         private readonly string $placeholder = ""
     ) {}
 
+    public function getPriorityLevel(): int {
+        return $this->priority;
+    }
     public function getName(): string {
         return $this->name;
     }

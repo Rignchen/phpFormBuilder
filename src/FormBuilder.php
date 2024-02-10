@@ -70,8 +70,16 @@ class FormBuilder {
                 return;
             $_SESSION['Rignchen']['Forms']['safePost']['call'] = false;
         }
+        /**
+         * @var array<array<string,FormType>> $priority
+         * 0 = important to generate first<br> 1 = generate before the usual<br> 2 = usual<br> 3 = generate after the usual<br> 4 = important to generate last<br>
+         */
+        $priority = [[],[],[],[],[]];
         foreach ($this->fields as $name => $field)
             if (isset($this->data[$name]))
+                $priority[$field->getPriorityLevel()][$name] = $field;
+        foreach ($priority as $fields)
+            foreach ($fields as $name => $field)
                 $field->call($this->data[$name], $field->getCallable());
     }
 }

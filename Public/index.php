@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 use Rignchen\Forms\FormBuilder;
 use Rignchen\Forms\FormTypes;
@@ -13,7 +13,6 @@ if (!isset($_SESSION['usernames'])) $_SESSION['usernames'] = [];
 $current_user = null;
 $form = new FormBuilder('safe_post');
 $form->addList([
-    new FormTypes\ResetButton('reset'),
     new FormTypes\TextInput('name', '', function ($value) {
         $_SESSION['usernames'][] = $value;
     }, 'pomme'),
@@ -26,7 +25,8 @@ $form->addList([
     new FormTypes\NumberInput('age', '', null, 0, 100, 10, 55),
     new FormTypes\CheckboxInput('agree'),
     new FormTypes\Select('gender', ["Prefer not to say","Men","Women","Other"], 3),
-    new FormTypes\SubmitButton('submit')
+    new FormTypes\SubmitButton('submit'),
+    new FormTypes\ResetButton('reset')
 ]);
 $form_renderer = $form->render();
 ?>

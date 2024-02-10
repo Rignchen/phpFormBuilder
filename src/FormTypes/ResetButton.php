@@ -6,6 +6,8 @@ use Rignchen\Forms\FormType;
 
 class ResetButton implements FormType {
     private string $id;
+    private int $priority = 0;
+    
     public function __construct(
         private readonly string $name,
         private readonly string $class = '',
@@ -13,6 +15,9 @@ class ResetButton implements FormType {
         private readonly string $value = 'Reset'
     ) {}
 
+    public function getPriorityLevel(): int {
+        return $this->priority;
+    }
     public function getName(): string {
         return $this->name;
     }

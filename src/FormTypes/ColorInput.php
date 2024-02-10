@@ -5,6 +5,8 @@ use Rignchen\Forms\FormType;
 
 class ColorInput implements FormType {
     private string $id;
+    private int $priority = 2;
+    
     public function __construct(
         private readonly string $name,
         private readonly string $class = '',
@@ -12,6 +14,9 @@ class ColorInput implements FormType {
         private readonly string $value = '#000000'
     ) {}
 
+    public function getPriorityLevel(): int {
+        return $this->priority;
+    }
     public function getName(): string {
         return $this->name;
     }

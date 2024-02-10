@@ -5,6 +5,8 @@ use Rignchen\Forms\FormType;
 
 class SubmitButton implements FormType {
     private string $id;
+    private int $priority = 4;
+    
     public function __construct(
         private readonly string $name,
         private readonly string $class = '',
@@ -12,6 +14,9 @@ class SubmitButton implements FormType {
         private $callable = null
     ) {}
 
+    public function getPriorityLevel(): int {
+        return $this->priority;
+    }
     public function getName(): string {
         return $this->name;
     }
