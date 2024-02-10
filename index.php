@@ -13,9 +13,10 @@ if (!isset($_SESSION['usernames'])) $_SESSION['usernames'] = [];
 $current_user = null;
 $form = new FormBuilder('safe_post');
 $form->addList([
+    new FormTypes\ResetButton('reset'),
     new FormTypes\TextInput('name', '', function ($value) {
         $_SESSION['usernames'][] = $value;
-    }),
+    }, 'pomme'),
     new FormTypes\PasswordInput('password', function ($value) {
         global $users, $current_user;
         if ($value !== null) foreach ($users as $user => $hash) if (password_verify($value, $hash)) $current_user = $user;
@@ -25,12 +26,7 @@ $form->addList([
     new FormTypes\NumberInput('age', '', null, 0, 100, 10, 55),
     new FormTypes\CheckboxInput('agree'),
     new FormTypes\Select('gender', ["Prefer not to say","Men","Women","Other"], 3),
-    new FormTypes\SubmitButton('submit'),
-    new FormTypes\SubmitButton('reset','','Reset',function ($value) {
-        $_SESSION = [];
-        header("Location: " . $_SERVER['REQUEST_URI']);
-        exit;
-    })
+    new FormTypes\SubmitButton('submit')
 ]);
 $form_renderer = $form->render();
 ?>
@@ -51,10 +47,10 @@ $form_renderer = $form->render();
 <?= $form_renderer->get('reset') ?>
 <?= $form_renderer->close() ?>
 
+<?php dump($_SESSION) ?>
+
 <ul>
     <?php foreach ($_SESSION['usernames'] as $username): ?>
         <li><?= $username ?></li>
     <?php endforeach ?>
 </ul>
-
-<?php dump($_SESSION) ?>

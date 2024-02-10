@@ -61,6 +61,10 @@ class FormBuilder {
     }
 
     private function try_call(): void {
+        if ($_SESSION['Rignchen']['Forms']['bypassNextCall']) {
+            $_SESSION['Rignchen']['Forms']['bypassNextCall'] = false;
+            return;
+        }
         if ($this->method === 'safe_post') {
             if (!$_SESSION['Rignchen']['Forms']['safePost']['call'])
                 return;
