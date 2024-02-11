@@ -33,9 +33,10 @@ class ResetButton implements FormType {
     }
     #[NoReturn] public function call($value, callable $callable): void {
         $callable($value);
-        $_SESSION['Rignchen']['Forms']['safePost']['bypassNextCall'] = true;
-        $_SESSION['Rignchen']['Forms']['safePost']['data'] = [];
-        header("Location: " . $_SERVER['REQUEST_URI']);
+        $_SESSION['Rignchen']['Forms']['bypassNextCall'] = true;
+        if (isset($_SESSION['Rignchen']['Forms']['safePost']['data']))
+            $_SESSION['Rignchen']['Forms']['safePost']['data'] = [];
+        header("Location: " . $_SERVER['SCRIPT_NAME']);
         exit;
     }
 
