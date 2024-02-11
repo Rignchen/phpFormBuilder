@@ -11,7 +11,7 @@ $users = [
 ];
 if (!isset($_SESSION['usernames'])) $_SESSION['usernames'] = [];
 $current_user = null;
-$form = new FormBuilder('safe_post');
+$form = new FormBuilder('get');
 $form->addList([
     new FormTypes\TextInput('name', '', function ($value) {
         $_SESSION['usernames'][] = $value;
@@ -21,6 +21,7 @@ $form->addList([
         if ($value !== null) foreach ($users as $user => $hash) if (password_verify($value, $hash)) $current_user = $user;
     }),
     new FormTypes\TextArea('bio'),
+    new FormTypes\RadioInput('hobbies', ['karate', 'scout', 'coding'], 'coding'),
     new FormTypes\ColorInput('skin'),
     new FormTypes\NumberInput('age', '', null, 0, 100, 10, 55),
     new FormTypes\CheckboxInput('agree'),
@@ -39,6 +40,9 @@ $form_renderer = $form->render();
 <?= $form_renderer->get('name') ?>
 <?= $form_renderer->get('password') ?>
 <?= $form_renderer->get('bio') ?>
+<?= $form_renderer->get('hobbies') ?> <?= $form_renderer->label('hobbies', 'Karate') ?>
+<?= $form_renderer->get('hobbies') ?> <?= $form_renderer->label('hobbies', 'Scout') ?>
+<?= $form_renderer->get('hobbies') ?> <?= $form_renderer->label('hobbies', 'Coding') ?>
 <?= $form_renderer->get('skin') ?>
 <?= $form_renderer->get('age') ?>
 <?= $form_renderer->get('gender') ?>
